@@ -1,0 +1,9 @@
+.background-content {
+  background-size: cover;
+  background-image: url(../../images/background-din.avif);
+}
+
+.background-form-ligin {
+  background-color: white;
+  border-radius: 20px;
+}
