@@ -1,50 +1,53 @@
-import { connect } from "react-redux";
-import React, { Component } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import './index.css'
 import { userAction } from "../../redux/actions";
+import { useEffect, useState } from "react";
 
-class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      password: '',
-      disabled: true,
-    }
-  }
+function Login () {
+  const dispatch = useDispatch();
+  const history = useHistory()
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+    disabled: true
+  })  
 
-  handleChange = ({ target }) => {
+  useEffect(() => {
+    enableButton();
+  }, [user.email, user.password]);
+
+  const handleChange = ({ target }) => {
     const { name, value } = target;
 
-    this.setState({
+    setUser({
+      ...user,
       [name]: value,
-    }, () => this.enableButton());
+    })
   };
 
-  enableButton = () => {
-    const { email, password } = this.state;
+  const enableButton = () => {
+    const { email, password } = user;
     const PASSWORD_VALID = 6;
     const validEmail = /\S+@\S+\.\S+/;
     const res = validEmail.test(email);
-    this.setState({ desabled: true });
-    if (res && password.length >= PASSWORD_VALID) this.setState({ disabled: false });
+    const disabled = !(res && password.length >= PASSWORD_VALID);
+    setUser({
+      ...user,
+      disabled: disabled
+    });
   }
 
-  handleClick = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    const { email, password } = this.state;
-    const { dispatch, history } = this.props;
-    const user = {
+    const { email, password } = user;
+    const userResult = {
       email: email,
       password: password
     }
-    console.log('user', user);
-    dispatch(userAction(user));
+    dispatch(userAction(userResult));
     history.push('/wallet');
   };
-
-  render() {
-    const { email, password, disabled } = this.state
     return (
       <div
         className="d-flex justify-content-center align-items-center background-content"
@@ -56,12 +59,12 @@ class Login extends Component {
             <input
               type="email"
               name="email"
-              value={email}
+              value={user.email}
               className="form-control mt-2"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Digite seu email..."
-              onChange={this.handleChange}
+              onChange={handleChange}
             />
           </div>
           <div className="form-group mb-4">
@@ -69,18 +72,18 @@ class Login extends Component {
             <input
               type="password"
               name="password"
-              value={password}
+              value={user.password}
               className="form-control mt-2"
               id="exampleInputPassword1"
               placeholder="Digite sua senha..."
-              onChange={this.handleChange}
+              onChange={handleChange}
             />
           </div>
           <button
             type="submit"
             className="btn btn-primary"
-            disabled={ disabled }
-            onClick={ this.handleClick }
+            disabled={ user.disabled }
+            onClick={ handleClick }
           >
             Entrar
           </button>
@@ -88,6 +91,5 @@ class Login extends Component {
       </div>
     );
   }
-}
 
-export default connect()(Login);
+export default Login;
