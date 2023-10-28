@@ -4,7 +4,7 @@ Este projeto foi desenvolvido com o propósito de revisar e consolidar os conhec
 
 **Recursos e Tecnologias Utilizados**:
 
-+**HTML**: Utilizado para a estrutura básica da aplicação.
++ **HTML**: Utilizado para a estrutura básica da aplicação.
 +**CSS**: Responsável por estilizar a interface e proporcionar uma experiência visual agradável.
 +**Bootstrap**: Framework CSS que contribui para a construção de um layout responsivo e moderno.
 +**React**: Biblioteca JavaScript de código aberto amplamente utilizada para a criação de interfaces de usuário interativas e dinâmicas.
