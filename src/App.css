@@ -1,5 +1,5 @@
 :root{
-  --primary: #24e412;
+  --primary: #000;
   --secondary: #d3d3d3;
   /* tertiary não é um padrão do Bootstrap, mas pode ser adicionado! */
   --tertiary: #72F2EB;

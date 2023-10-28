@@ -2,6 +2,7 @@ import { USER_DATA } from "../actions";
 
 const INITIAL_STATE = {
   user: {
+    username: '',
     email: '',
     password: ''
   }
