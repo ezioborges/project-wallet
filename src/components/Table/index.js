@@ -14,7 +14,7 @@ function Table() {
   };
 
   return (
-    <div>
+    <div className="table-responsive">
       <table className="table table-hover">
         <thead className="thead-dark">
           <tr>

@@ -1,6 +1,6 @@
 :root{
-  --primary: #000;
-  --secondary: #d3d3d3;
+  --primary: rgb(255, 0, 0);
+  --secondary: rgba(255, 0, 0, 0.662);
   /* tertiary não é um padrão do Bootstrap, mas pode ser adicionado! */
   --tertiary: #72F2EB;
   --success: #0099DD;
@@ -48,23 +48,5 @@
 
 body {
   min-height: 100vh;
+  min-width: 100vw;
 }
-
-.element {
-    scrollbar-width: thin;
-    scrollbar-color: black;
-  }
-  
-  .element::-webkit-scrollbar {
-    width: 4px;
-    height: 3px; /* A altura só é vista quando a rolagem é horizontal */
-  }
-  
-  .element::-webkit-scrollbar-track {
-    background: transparent;
-    padding: 2px;
-  }
-  
-  .element::-webkit-scrollbar-thumb {
-    background-color: black;;
-  }

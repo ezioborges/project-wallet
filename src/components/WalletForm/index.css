@@ -5,3 +5,8 @@
 button {
   border: none !important;
 }
+
+.letter {
+  color: #fff;
+  font-weight: bold;
+}

@@ -82,8 +82,10 @@ function WalletForm() {
   return (
     <div>
       <form className="d-sm-flex py-3 justify-content-around align-items-end wallet-form-color">
-        <div className="form-group">
-          <label htmlFor="value">Valor: </label>
+        <div className="form-group mx-3">
+          <label htmlFor="value" className="letter">
+            Valor:{" "}
+          </label>
           <input
             type="number"
             name="value"
@@ -94,8 +96,10 @@ function WalletForm() {
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="currency">Moedas: </label>
+        <div className="form-group mx-3">
+          <label htmlFor="currency" className="letter">
+            Moedas:{" "}
+          </label>
           <select
             className="form-control"
             name="currency"
@@ -108,8 +112,10 @@ function WalletForm() {
           </select>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="method">Método de pagamento: </label>
+        <div className="form-group mx-3">
+          <label htmlFor="method" className="letter">
+            Método de pagamento:{" "}
+          </label>
           <select
             className="form-control"
             name="method"
@@ -122,8 +128,10 @@ function WalletForm() {
           </select>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="tag">Categotia: </label>
+        <div className="form-group mx-3">
+          <label htmlFor="tag" className="letter">
+            Categotia:{" "}
+          </label>
           <select
             className="form-control"
             name="tag"
@@ -136,8 +144,10 @@ function WalletForm() {
           </select>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="description">Descrição: </label>
+        <div className="form-group mx-3">
+          <label htmlFor="description" className="letter">
+            Descrição:{" "}
+          </label>
           <textarea
             className="form-control"
             name="description"
@@ -146,8 +156,11 @@ function WalletForm() {
             rows="1"
           ></textarea>
         </div>
-        <div>
-          <button className="btn btn-primary" onClick={saveDataOnClick}>
+        <div className="d-flex justify-content-center">
+          <button
+            className="btn btn-primary mt-4"
+            onClick={saveDataOnClick}
+          >
             Adicionar Despesa
           </button>
         </div>
