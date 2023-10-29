@@ -1,17 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
-import { deletItem, updateItem } from "../../redux/actions";
+import { deletItem, editExpenseStarted } from "../../redux/actions";
 
 function Table() {
   const globalStateExpenses = useSelector((state) => state.wallet.expenses);
   const dispatch = useDispatch();
 
-  const deleteExpense = ({ target }) => {
+  const deleteExpense = (id) => {
     const filteredExpenses = globalStateExpenses.filter(
-      (exp) => exp.id !== +target.id
+      (exp) => exp.id !== id
     );
     dispatch(deletItem(filteredExpenses));
   };
+
+  const editItem = (id) => {
+    dispatch(editExpenseStarted(id))
+  } 
 
   return (
     <div className="table-responsive">
@@ -56,10 +60,17 @@ function Table() {
                 <td>
                   <button
                     className="btn btn-primary"
-                    id={id}
-                    onClick={deleteExpense}
+                    onClick={() => deleteExpense(id)}
                   >
                     Excluir
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => editItem(id)}
+                  >
+                    Editar
                   </button>
                 </td>
               </tr>

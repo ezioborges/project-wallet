@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { editExpenseFinished, fetchCurrency, walletExpenses } from "../../redux/actions";
+import { fetchCurrency, walletExpenses } from "../../redux/actions";
 import { useEffect, useState } from "react";
-import "./index.css";
+// import "./index.css";
 import getCurrencies from "../../services/getCurrencies";
 
-function WalletForm() {
+function Edit() {
   const globalState = useSelector((state) => state.wallet.currencies);
-  const globalWallet = useSelector((state) => state.wallet);
+  const globalWallet = useSelector((state) => state.wallet.expenses);
 
   const initialState = {
     value: "",
@@ -50,10 +50,6 @@ function WalletForm() {
     fetchData();
   }, [dispatch]);
 
-  useEffect(() => {
-    editorMode();
-  }, []);
-
   const handleChange = ({ target }) => {
     const { name, value } = target;
 
@@ -63,7 +59,9 @@ function WalletForm() {
     });
   };
 
-  async function buildExpense() { //monta uma nova despesa
+  const saveDataOnClick = async (e) => {
+    e.preventDefault();
+
     try {
       const exchange = await getCurrencies();
 
@@ -72,63 +70,15 @@ function WalletForm() {
         exchangeRates: exchange,
       };
 
-      return updatedExpensesForm;
+      dispatch(walletExpenses(updatedExpensesForm));
+
+      // setExpensesForm(initialState);
     } catch (error) {
       console.error("Erro ao buscar as moedas:", error);
-      throw error;
-    }
-  }
-
-  const saveDataOnClick = async () => { // salva um novo despesa
-
-    const updatedExpensesForm = await buildExpense();
-
-    dispatch(walletExpenses(updatedExpensesForm));
-
-    setExpensesForm(initialState);
-  };
-
-  const editorMode = () => {
-    const { editor, expenses, idToEdit } = globalWallet;
-    const { editorState } = expensesForm;
-
-    if (editor && editorState) {
-      const { value, description, currency, method, tag } = expenses.find(
-        (exp) => exp.id === idToEdit
-      );
-
-      setExpensesForm({
-        editorState: false,
-        value,
-        currency,
-        description,
-        method,
-        tag,
-      });
     }
   };
 
-  const updateButton = async () => { //atualiza uma despesa
-    const { expenses, idToEdit } = globalWallet;
-
-    const updatedExpensesForm = await buildExpense();
-
-    const newExpenses = expenses.map((exp) =>
-      exp.id === idToEdit
-        ? {
-            ...exp,
-            ...updatedExpensesForm,
-          }
-        : exp
-    );
-
-    dispatch(editExpenseFinished(newExpenses));
-
-    setExpensesForm(initialState);
-  };
-
-  const { value, description, currency, method, tag } = expensesForm;
-  const { editor } = globalWallet;
+  const { value, description, currency, method, tag } = globalWallet;
   return (
     <div>
       <form className="d-sm-flex py-3 justify-content-around align-items-end wallet-form-color">
@@ -207,18 +157,11 @@ function WalletForm() {
           ></textarea>
         </div>
         <div className="d-flex justify-content-center">
-          <button 
+          <button
             className="btn btn-primary mt-4"
-            onClick={(e) => {
-              e.preventDefault();
-              if (editor) {
-                updateButton();
-              } else {
-                saveDataOnClick();
-              }
-            }}
+            onClick={saveDataOnClick}
           >
-            { editor ? 'Editar despesa' : 'Adicionar Despesas' }
+            Adicionar Despesa
           </button>
         </div>
       </form>
@@ -226,4 +169,4 @@ function WalletForm() {
   );
 }
 
-export default WalletForm;
+export default Edit;

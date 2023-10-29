@@ -1,5 +1,4 @@
-import { totalExpenses } from "../../util/totalExpenses";
-import { DELETE_ITEM, WALLET_DATA, WALLET_EXPENSES, UPDATE_ITEM } from "../actions";
+import { DELETE_ITEM, WALLET_DATA, WALLET_EXPENSES, UPDATE_ITEM, EDIT_EXPENSE_STARTED, EDIT_EXPENSE_FINISHED } from "../actions";
 
 const INITIAL_STATE = {
   currencies: [], // array de string
@@ -17,7 +16,7 @@ const wallet = (state = INITIAL_STATE, action) => {
       };
     }
     case WALLET_EXPENSES: {
-      const expenses = [...state.expenses, action.payload]
+      const expenses = [...state.expenses, action.payload] // para que o id seja passado direto
         .map((exp, index) => {
           exp.id = index
           return exp
@@ -34,19 +33,18 @@ const wallet = (state = INITIAL_STATE, action) => {
         expenses: action.payload,
       };
     }
-    case UPDATE_ITEM: {
-      const updatedExpense = action.payload;
-      const updatedExpenses = state.expenses.map((expense) => {
-        if (expense.id === updatedExpense.id) {
-          return updatedExpense;
-        } else {
-          return expense;
-        }
-      });
-
+    case EDIT_EXPENSE_STARTED: {
       return {
         ...state,
-        expenses: updatedExpenses,
+        editor: true,
+        idToEdit: action.payload
+      }
+    }
+    case EDIT_EXPENSE_FINISHED: {
+      return {
+        ...state,
+        editor: false,
+        expenses: action.payload
       }
     }
     default:

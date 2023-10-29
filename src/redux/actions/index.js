@@ -5,6 +5,8 @@ export const WALLET_DATA = 'WALLET_DATA';
 export const WALLET_EXPENSES = 'WALLET_EXPENSES';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const UPDATE_ITEM = 'UPDATE_ITEM';
+export const EDIT_EXPENSE_STARTED = 'EDIT_EXPENSE_STARTED';
+export const EDIT_EXPENSE_FINISHED = 'EDIT_EXPENSE_FINISHED';
 
 export const userAction = (user) => ({
   type: USER_DATA,
@@ -29,6 +31,16 @@ export const deletItem = (deleted) => ({
 export const updateItem = (updated) => ({
   type: UPDATE_ITEM,
   payload: updated
+})
+
+export const editExpenseStarted = (id) => ({
+  type: EDIT_EXPENSE_STARTED,
+  payload: id
+})
+
+export const editExpenseFinished = (expense) => ({
+  type: EDIT_EXPENSE_FINISHED,
+  payload: expense
 })
 
 export const fetchCurrency = () => {

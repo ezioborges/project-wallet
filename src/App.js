@@ -3,6 +3,7 @@ import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
+import Edit from './pages/Edit';
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/wallet" component={ Wallet } />
+          <Route exact path="/edit/:id" component={ Edit } />
         </Switch>
       </div>
     );
