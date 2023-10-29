@@ -36,7 +36,6 @@ function WalletForm() {
     tag: "Alimentação",
     description: "",
     exchangeRates: {},
-    editorState: true,
   });
 
   useEffect(() => {
@@ -90,15 +89,13 @@ function WalletForm() {
 
   const editorMode = () => {
     const { editor, expenses, idToEdit } = globalWallet;
-    const { editorState } = expensesForm;
 
-    if (editor && editorState) {
+    if (editor) {
       const { value, description, currency, method, tag } = expenses.find(
         (exp) => exp.id === idToEdit
       );
 
       setExpensesForm({
-        editorState: false,
         value,
         currency,
         description,
