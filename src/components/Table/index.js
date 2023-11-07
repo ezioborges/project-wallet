@@ -1,24 +1,36 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
 import { deletItem, editExpenseStarted } from "../../redux/actions";
+import { BsFillTrashFill, BsPenFill } from "react-icons/bs";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 function Table() {
   const globalStateExpenses = useSelector((state) => state.wallet.expenses);
   const dispatch = useDispatch();
 
   const deleteExpense = (id) => {
-    const filteredExpenses = globalStateExpenses.filter(
-      (exp) => exp.id !== id
-    );
+    const filteredExpenses = globalStateExpenses.filter((exp) => exp.id !== id);
     dispatch(deletItem(filteredExpenses));
   };
 
   const editItem = (id) => {
-    dispatch(editExpenseStarted(id))
-  } 
+    dispatch(editExpenseStarted(id));
+  };
+
+  const deleteIcon = (
+    <Tooltip>
+      <strong>Excluir</strong>
+    </Tooltip>
+  );
+
+  const editIcon = (
+    <Tooltip>
+      <strong>Editar</strong>
+    </Tooltip>
+  );
 
   return (
-    <div className="table-responsive">
+    <div className="table-responsive table-custom element">
       <table className="table table-hover">
         <thead className="thead-dark">
           <tr>
@@ -57,21 +69,23 @@ function Table() {
                   {Number(exchangeRates[currency].ask * value).toFixed(2)}
                 </td>
                 <td>Real</td>
-                <td>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => deleteExpense(id)}
-                  >
-                    Excluir
-                  </button>
-                </td>
-                <td>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => editItem(id)}
-                  >
-                    Editar
-                  </button>
+                <td className="col-1">
+                  <OverlayTrigger placement="bottom" overlay={editIcon}>
+                    <button
+                      className="btn btn-primary me-2"
+                      onClick={() => editItem(id)}
+                    >
+                      <BsPenFill />
+                    </button>
+                  </OverlayTrigger>
+                  <OverlayTrigger placement="bottom" overlay={deleteIcon}>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => deleteExpense(id)}
+                    >
+                      <BsFillTrashFill />
+                    </button>
+                  </OverlayTrigger>
                 </td>
               </tr>
             )
